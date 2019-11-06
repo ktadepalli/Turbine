@@ -1,0 +1,65 @@
+---
+- hosts: win 
+  vars_files:
+    - /etc/ansible/wow_vars.yml
+  tasks:
+     - name: create scriipt folder
+       win_file:
+         path: "{{ scriptdir }}"
+         state: directory
+
+     - name: Download zip file from jfrog
+       win_get_url:
+         url: "{{ url}}"
+         dest: "{{ scriptdir }}"
+                 
+     - name: Compress directory /path/to/foo/ into /path/to/foo.tgz
+       win_copy:
+         src: "{{ iisdir }}"
+         dest: "{{ backupdir }}"
+         remote_src: yes
+         backup: yes
+                 
+     - name: Stop an application pool
+       win_iis_webapppool:
+         name: "{{ apppool }}"
+         state: stopped
+
+     - name: Delete IIS directory
+       win_file:
+        path: "{{ iisdir }}"
+        state: absent
+
+     - name: Recreate IIS directory
+       win_file:
+         path: "{{ iisdir }}"
+         state: directory
+
+
+     - name: Extract and deploy
+       win_unzip:
+         src: c:\scriptfol\etaskcard.zip
+         dest: "{{ iisdir }}"
+       
+
+     - name: Copy config
+       win_copy:
+         src: '{{ iisdir}}\ConfigFilesForCARA\Web.{{ env }}.config'
+         dest: c:\newIIS\Web.config
+         remote_src: yes
+         backup: yes
+
+
+     - name: Stop an application pool
+       win_iis_webapppool:
+         name: "{{ apppool }}"
+         state: started
+
+     - name: Send summary mail
+       local_action:
+         module: mail
+         subject: "{{ summary }}"
+         to: "{{ recipient }}"
+         body: "{{ body }}"
+       run_once: True
+

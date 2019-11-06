@@ -1,0 +1,11 @@
+---
+appname: wow
+scriptdir: c:\scriptfol
+iisdir: c:\newIIS
+backupdir: c:\Backupdir
+apppool: hello
+url: https://www.7-zip.org/a/7z1900-x64.exe
+env: dev
+summary: WOW Deployment
+recipient: kenani101071@gmail.com,kenani449@gmail.com
+body: Deployment of wow app completed sucessfully
