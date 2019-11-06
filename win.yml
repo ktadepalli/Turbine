@@ -1,0 +1,32 @@
+---
+- hosts: win
+  vars_prompt:
+    - name: username
+      prompt: "What is your username?"
+      private: no
+  tasks:
+     - name: create scriipt folder
+       win_file:
+         path: C:\scriptfol
+         state: directory
+
+     - debug:
+         msg: 'Logging in as {{ username }}'
+
+     - name: Download zip file from jfrog
+       win_get_url:
+         url: https://www.7-zip.org/a/7z1900-x64.exe
+         dest: C:\scriptfol
+
+     - name: Stop an application pool
+       win_iis_webapppool:
+         name: hello
+         state: stopped
+
+     - name: Send summary mail
+       local_action:
+         module: mail
+         subject: "Summary Mail"
+         to: "kenani101071@gmail.com"
+         body: "hello kan"
+       run_once: True
