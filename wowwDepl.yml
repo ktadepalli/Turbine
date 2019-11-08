@@ -13,13 +13,14 @@
          url: "{{ url}}"
          dest: "{{ scriptdir }}"
                  
-     - name: Compress directory /path/to/foo/ into /path/to/foo.tgz
-       win_copy:
-         src: "{{ iisdir }}"
-         dest: "{{ backupdir }}"
-         remote_src: yes
-         backup: yes
                  
+     - name: zip a directory
+       win_zip:
+         src: "{{ iisdir }}"
+         dest: '{{ backupdir }}\{{ appname }}.zip' 
+         creates: '{{ backupdir }}\{{ appname }}.zip'
+
+
      - name: Stop an application pool
        win_iis_webapppool:
          name: "{{ apppool }}"
