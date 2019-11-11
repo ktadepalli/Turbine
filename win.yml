@@ -2,8 +2,7 @@
 - hosts: all
   vars_prompt:
     - name: username
-      prompt: "What is your username?"
-      private: no
+
   tasks:
      - name: create scriipt folder
        win_file:
@@ -11,7 +10,7 @@
          state: directory
 
      - debug:
-         msg: 'Logging in as {{ username }}'
+         msg: 'Logging in as Kan'
 
      - name: Download zip file from jfrog
        win_get_url:
