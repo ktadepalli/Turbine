@@ -1,5 +1,5 @@
 ---
-- hosts: win
+- hosts: all
   vars_prompt:
     - name: username
       prompt: "What is your username?"
