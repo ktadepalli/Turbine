@@ -1,5 +1,5 @@
 ---
-- hosts: win 
+- hosts: all
   vars_files:
     - /etc/ansible/wow_vars.yml
   tasks:
