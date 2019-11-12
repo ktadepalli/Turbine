@@ -1,8 +1,5 @@
 ---
 - hosts: all
-  vars_prompt:
-    - name: username
-  
   tasks:
      - name: create scriipt folder
        win_file:
