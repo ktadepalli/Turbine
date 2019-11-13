@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: Group_Atlas
   vars_files:
     - ./wow_vars.yml
   tasks:
