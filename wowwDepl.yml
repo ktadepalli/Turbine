@@ -1,5 +1,5 @@
 ---
-- hosts: Group_Atlas
+- hosts: PROD_Servers
   vars_files:
     - ./wow_vars.yml
   tasks:
